@@ -1,10 +1,9 @@
 <?php
-
 require '../../config.php';
 
-if($_SERVER['REQUEST_METHOD'] == 'GET'){
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
-  try { 
+  try {
     $stmt = $conn->prepare('
     SELECT 
       r.id, 
@@ -30,21 +29,18 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
     $stmt->execute();
     $results = $stmt->get_result();
     $recipes = [];
-    if($results->num_rows > 0){
-      while($row = $results->fetch_assoc()){
+    if ($results->num_rows > 0) {
+      while ($row = $results->fetch_assoc()) {
         $row['ingredients'] = json_decode($row['ingredients'], true);
-         $recipes[]=$row ;
+        $recipes[] = $row;
       }
-      echo json_encode(["recipes"=>$recipes, "status"=>"successful"]);
-    }else{
+      echo json_encode(["recipes" => $recipes, "status" => "successful"]);
+    } else {
       echo "no recipes to fetch";
     }
-
   } catch (Exception $e) {
     echo json_encode(["message" => "couldn't get recipes", "status" => "unsuccessful"]);
   }
-}
-else{
-  echo 'Only GET requests are allowed'; 
+} else {
+  echo 'Only GET requests are allowed';
 };
-
