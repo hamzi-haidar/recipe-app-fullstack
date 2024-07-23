@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   $ings = $data["ingredients"];
 
   if ($name == "" || $steps == "" || count($ings) == 0) {
-    echo "inputs cant be empty";
+    echo json_encode(["message" => "inputs can't be empty", "status" => "unsuccessful"]);
     exit;
   }
 

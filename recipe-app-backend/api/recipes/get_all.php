@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
       r.id, 
       r.name, 
       r.steps,
-      u.name AS user_name, 
+      u.user_name, 
       CONCAT("[", GROUP_CONCAT(
         CONCAT(\'{"ing_id":\', i.id, \',
         "name":"\', i.name, \'","quantity":"\', ri.quantity, \'","measurement":"\', ri.measurement, \'"}\')

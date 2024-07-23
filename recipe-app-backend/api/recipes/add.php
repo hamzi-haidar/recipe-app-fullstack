@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 
   if ($name == "" || $steps == "" || count($ings) == 0 || $user_id == 0) {
-    echo "inputs cant be empty";
+    echo json_encode(["message" => "inputs can't be empty", "status" => "unsuccessful"]);
     exit;
   }
 
