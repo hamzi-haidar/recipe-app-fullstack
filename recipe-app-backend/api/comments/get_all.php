@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
       $comments[] = $row;
     }
 
-    echo json_encode(["message" => $comments, "status" => "unsuccessful"]);
+    echo json_encode(["message" => $comments, "status" => "successful"]);
   } catch (Exception $e) {
 
     echo json_encode(["message" => "couldn't get comments", "status" => "unsuccessful"]);
