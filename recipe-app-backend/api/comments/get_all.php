@@ -24,5 +24,5 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     echo json_encode(["message" => "couldn't get comments", "status" => "unsuccessful"]);
   }
 } else {
-  echo "Only GET methods are allowed";
+  echo json_encode(["message" => "Only POST methods are allowed", "status" => "unsuccessful"]);
 }

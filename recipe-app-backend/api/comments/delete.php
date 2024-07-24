@@ -24,5 +24,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo json_encode(["message" => "couldn't delete comment", "status" => "unsuccessful"]);
   }
 } else {
-  echo "Only POST methods are allowed";
+  echo json_encode(["message" => "Only POST methods are allowed", "status" => "unsuccessful"]);
 }

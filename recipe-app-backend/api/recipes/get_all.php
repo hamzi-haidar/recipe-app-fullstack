@@ -50,5 +50,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     echo json_encode(["message" => "couldn't get recipes", "status" => "unsuccessful"]);
   }
 } else {
-  echo 'Only GET requests are allowed';
+  echo json_encode(["message" => "Only POST methods are allowed", "status" => "unsuccessful"]);
 };

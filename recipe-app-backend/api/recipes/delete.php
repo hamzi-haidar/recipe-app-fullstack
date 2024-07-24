@@ -22,5 +22,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo json_encode(["message" => "Couldn't delete recipe", "status" => "unsuccessful"]);
   }
 } else {
-  echo 'Only POST requests are allowed';
+  echo json_encode(["message" => "Only POST methods are allowed", "status" => "unsuccessful"]);
 }
