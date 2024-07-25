@@ -1,9 +1,16 @@
 <?php
 require '../../config.php';
 
+// if (!isset($_SESSION["is_authenticated"]) || !$_SESSION["is_authenticated"]) {
+//   echo json_encode(["message" => "Unauthorized", "status" => "unsuccessful"]);
+//   exit;
+// }
+
+print_r($_SESSION);
+
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
-  $user_id = $_GET["user_id"];
+  // $user_id = $_GET["user_id"];
 
   try {
     $stmt = $conn->prepare('
