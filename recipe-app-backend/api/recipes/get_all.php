@@ -3,20 +3,31 @@ require '../../config.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
+  $user_id = $_GET["user_id"];
+
   try {
     $stmt = $conn->prepare('
     SELECT 
       r.id, 
       r.name, 
       r.steps,
+      r.image_url,
       u.user_name, 
       s.count as stars,
+       CASE 
+        WHEN EXISTS (
+          SELECT 1
+          FROM stars s2 
+          WHERE s2.recipe_id = r.id AND s2.user_id = ?
+        ) THEN 1
+        ELSE 0
+      END as is_starred,
       CONCAT("[", GROUP_CONCAT(
         CONCAT(\'{"ing_id":\', i.id, \',
         "name":"\', i.name, \'","quantity":"\', ri.quantity, \'","measurement":"\', ri.measurement, \'"}\')
         ), "]") as ingredients
     from 
-      recipes r
+      recipes r 
     join 
       users u on u.id = r.user_id
     join 
@@ -28,8 +39,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
      from stars
      group by recipe_id) s on s.recipe_id = r.id
    group by
-    r.id;
+    r.id
+    ;
   ');
+
+    $stmt->bind_param('i', $user_id);
 
     $stmt->execute();
     $results = $stmt->get_result();
@@ -50,5 +64,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     echo json_encode(["message" => "couldn't get recipes", "status" => "unsuccessful"]);
   }
 } else {
-  echo json_encode(["message" => "Only POST methods are allowed", "status" => "unsuccessful"]);
+  echo json_encode(["message" => "Only GET methods are allowed", "status" => "unsuccessful"]);
 };
