@@ -5,7 +5,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
   $data = json_decode(file_get_contents("php://input"), true);
 
-  if (!isset($data["name"], $data["steps"], $data["user_id"], $data["ingredients"])) {
+  if (!isset($data["name"], $data["steps"], $data["user_id"], $data["image_url"], $data["ingredients"])) {
     echo json_encode(["message" => "Invalid input", "status" => "unsuccessful"]);
     exit;
   };
@@ -13,6 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   $name = $data["name"];
   $steps = $data["steps"];
   $user_id = $data["user_id"];
+  $image_url = $data["image_url"];
   $ings = $data["ingredients"];
 
 
@@ -23,8 +24,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 
   try {
-    $stmt = $conn->prepare('insert into recipes (name, steps, user_id) values (?,?,?)');
-    $stmt->bind_param('ssi', $name, $steps, $user_id);
+    $stmt = $conn->prepare('insert into recipes (name, steps, user_id, image_url) values (?,?,?,?)');
+    $stmt->bind_param('ssis', $name, $steps, $user_id, $image_url);
     $stmt->execute();
     $recipe_id = $stmt->insert_id;
 
@@ -32,10 +33,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       throw new Exception("couldn't add recipe");
     }
 
-    $stmt = $conn->prepare('insert into recipe_ingredients (recipe_id, ing_id, quantity, measurement) values (?,?,?,?)');
+    $stmt = $conn->prepare('insert into recipe_ingredients (recipe_id, ingredient, quantity, measurement) values (?,?,?,?)');
 
     foreach ($ings as $ing) {
-      $stmt->bind_param('iiis', $recipe_id, $ing["ing_id"], $ing["quantity"], $ing["measurement"]);
+      $stmt->bind_param('isis', $recipe_id, $ing["ingredient"], $ing["quantity"], $ing["measurement"]);
       $stmt->execute();
 
       if ($stmt->affected_rows === 0) {

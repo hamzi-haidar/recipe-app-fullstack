@@ -40,7 +40,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION["email"] = $user["email"];
         $_SESSION["is_authenticated"] = true;
 
-        print_r($_SESSION);
 
         $payload = [
           'iat' => time(),
