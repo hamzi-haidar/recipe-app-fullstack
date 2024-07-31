@@ -1,4 +1,7 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
 $server_name = "localhost";
 $user_name = "root";
@@ -23,7 +26,7 @@ session_start([
     'sid_length' => 128,
 ]);
 
-$timeout = 3600;
+$timeout = 3600 * 24;
 if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > $timeout)) {
     session_unset();
     session_destroy();
