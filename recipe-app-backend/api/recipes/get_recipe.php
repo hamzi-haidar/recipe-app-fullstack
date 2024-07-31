@@ -9,7 +9,8 @@ require '../../config.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
-  // $user_id = $_GET["user_id"];
+  $recipe_id = $_GET["recipe_id"];
+
 
   try {
     $stmt = $conn->prepare('
@@ -34,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         ), "]") as ingredients
     from 
       recipes r 
-    join 
+    join
       users u on u.id = r.user_id
     join 
       recipe_ingredients ri on ri.recipe_id = r.id
@@ -42,13 +43,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     (select recipe_id, count(id) as count
      from stars
      group by recipe_id) s on s.recipe_id = r.id
+   where
+    r.id = ?
    group by
     r.id
     ;
   ');
 
-    $stmt->bind_param('i', $user_id);
-
+    $stmt->bind_param('ii', $user_id, $recipe_id);
     $stmt->execute();
     $results = $stmt->get_result();
     $recipes = [];
@@ -65,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
       echo json_encode(["message" => "no recipes to fetch", "status" => "unsuccessful"]);
     }
   } catch (Exception $e) {
-    echo json_encode(["message" => "couldn't get recipes", "status" => "unsuccessful"]);
+    echo json_encode(["message" => $e . "couldn't get recipes", "status" => "unsuccessful"]);
   }
 } else {
   echo json_encode(["message" => "Only GET methods are allowed", "status" => "unsuccessful"]);
