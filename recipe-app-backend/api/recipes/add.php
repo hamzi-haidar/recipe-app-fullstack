@@ -5,13 +5,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
   $data = json_decode(file_get_contents("php://input"), true);
 
-  if (!isset($data["name"], $data["steps"], $data["user_id"], $data["image_url"], $data["ingredients"])) {
+  if (!isset($data["name"], $data["steps"], $data["description"], $data["user_id"], $data["image_url"], $data["ingredients"])) {
     echo json_encode(["message" => "Invalid input", "status" => "unsuccessful"]);
     exit;
   };
 
   $name = $data["name"];
   $steps = $data["steps"];
+  $description = $data["description"];
   $user_id = $data["user_id"];
   $image_url = $data["image_url"];
   $ings = $data["ingredients"];
@@ -24,8 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 
   try {
-    $stmt = $conn->prepare('insert into recipes (name, steps, user_id, image_url) values (?,?,?,?)');
-    $stmt->bind_param('ssis', $name, $steps, $user_id, $image_url);
+    $stmt = $conn->prepare('insert into recipes (name, steps,description, user_id, image_url) values (?,?,?,?,?)');
+    $stmt->bind_param('sssis', $name, $steps, $description, $user_id, $image_url);
     $stmt->execute();
     $recipe_id = $stmt->insert_id;
 

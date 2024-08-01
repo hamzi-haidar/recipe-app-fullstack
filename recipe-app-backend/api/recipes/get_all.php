@@ -17,6 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
       r.id, 
       r.name, 
       r.steps,
+      r.description,
       r.image_url,
       u.user_name, 
       s.count as stars,
