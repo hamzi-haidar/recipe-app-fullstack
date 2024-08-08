@@ -18,6 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
       r.id, 
       r.name, 
       r.steps,
+      r.description,
       r.image_url,
       u.user_name, 
       s.count as stars,
@@ -53,16 +54,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $stmt->bind_param('ii', $user_id, $recipe_id);
     $stmt->execute();
     $results = $stmt->get_result();
-    $recipes = [];
+    $recipe = [];
     if ($results->num_rows > 0) {
       while ($row = $results->fetch_assoc()) {
 
         $row['ingredients'] = json_decode($row['ingredients'], true);
 
 
-        $recipes[] = $row;
+        $recipe[] = $row;
       }
-      echo json_encode(["recipes" => $recipes, "status" => "successful"]);
+      echo json_encode(["recipe" => $recipe, "status" => "successful"]);
     } else {
       echo json_encode(["message" => "no recipes to fetch", "status" => "unsuccessful"]);
     }

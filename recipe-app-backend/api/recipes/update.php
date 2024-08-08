@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
   $data = json_decode(file_get_contents("php://input"), true);
 
-  if (!isset($data["id"], $data["name"], $data["steps"], $data["image_url"], $data["ingredients"])) {
+  if (!isset($data["id"], $data["name"], $data["steps"],  $data["description"], $data["image_url"], $data["ingredients"])) {
     echo json_encode(["message" => "Invalid input", "status" => "unsuccessful"]);
     exit;
   }
@@ -14,6 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   $id = $data["id"];
   $name = $data["name"];
   $steps = $data["steps"];
+  $description = $data["description"];
   $image_url = $data["image_url"];
   $ings = $data["ingredients"];
 
@@ -23,8 +24,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   }
 
   try {
-    $stmt = $conn->prepare('update recipes set name=?, steps=?, image_url=? where id=?');
-    $stmt->bind_param('sssi', $name, $steps, $image_url, $id);
+    $stmt = $conn->prepare('update recipes set name=?, steps=?, description=?, image_url=? where id=?');
+    $stmt->bind_param('ssssi', $name, $steps,  $description, $image_url, $id);
     $stmt->execute();
 
     $stmt = $conn->prepare('select ingredient, quantity, measurement from recipe_ingredients where recipe_id=?');
