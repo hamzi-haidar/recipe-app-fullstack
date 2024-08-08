@@ -34,6 +34,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $hashed_password =  $user["password"];
 
       if (password_verify($password, $hashed_password)) {
+
+        session_start([
+          'cookie_lifetime' => 86400,
+          'cookie_secure' => true,
+          'cookie_httponly' => true,
+          'use_strict_mode' => true,
+          'use_cookies' => true,
+          'use_only_cookies' => true,
+          'sid_length' => 128,
+        ]);
+
+        $timeout = 3600 * 24;
+        if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > $timeout)) {
+          session_unset();
+          session_destroy();
+          echo json_encode(["message" => "Session expired", "status" => "unsuccessful"]);
+          exit;
+        }
+        $_SESSION['last_activity'] = time();
+
         session_regenerate_id(true);
         $_SESSION["user_id"] = $user["id"];
         $_SESSION["user_name"] = $user["user_name"];
@@ -41,24 +61,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION["is_authenticated"] = true;
 
 
-        $payload = [
-          'iat' => time(),
-          'exp' => time() + 30600,
-          'sub' => $user["id"],
-          'user_name' => $user["user_name"],
-          'email' => $user["email"]
-        ];
-
         echo json_encode([
           "user_id" => $user["id"],
           "user_name" => $user["user_name"],
           "email" => $user["email"],
-          "isAuthenticated" => true
+          "isAuthenticated" => true,
+          "message" => "Login successful",
+          "status" => "successful"
         ]);
         exit;
       }
     }
 
+    http_response_code(401);
     echo json_encode(["message" => "Wrong credentials", "status" => "unsuccessful"]);
   } catch (Exception $e) {
 
