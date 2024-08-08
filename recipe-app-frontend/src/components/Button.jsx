@@ -1,17 +1,19 @@
 import { useNavigate } from "react-router-dom";
 
-function Button({ children, type, to, onClick }) {
+function Button({ children, type, to, onClick, active }) {
   const navigate = useNavigate();
 
   const styles = {
-    secondary: "rounded-2xl bg-0 px-3 py-1 text-grey-300 hover:scale-105",
+    secondary: `bg-0 px-3 py-2 text-grey-300 text-lg hover:scale-105 ${active === children && "border-b-[3.5px] border-orange-400"}`,
     primary:
-      "rounded-2xl bg-orange-400 px-3 py-1 text-white hover:scale-105 hover:bg-orange-500 ",
+      "rounded-2xl bg-orange-400 px-3 py-1 text-white hover:scale-105 hover:bg-orange-500",
+    delete:
+      "rounded-2xl bg-orange-600 px-3 py-1 text-white hover:scale-105 hover:bg-orange-700",
   };
 
   return (
     <button
-      className={type === "secondary" ? styles.secondary : styles.primary}
+      className={styles[type] || styles.primary}
       onClick={
         to
           ? () => {

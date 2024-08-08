@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import URL from "./config";
+import BASEURL from "./config";
 
 async function getRecipes() {
-  const res = await fetch(URL + "/recipes/get_all.php");
+  const res = await fetch(BASEURL + "/recipes/get_all.php");
 
   const data = await res.json();
 
