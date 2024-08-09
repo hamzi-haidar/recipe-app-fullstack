@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
       END as is_starred,
       CONCAT("[", GROUP_CONCAT(
         CONCAT(\'{"ing_id":\', ri.id, \',
-        "name":"\', ri.ingredient, \'","quantity":"\', ri.quantity, \'","measurement":"\', ri.measurement, \'"}\')
+        "ingredient":"\', ri.ingredient, \'","quantity":"\', ri.quantity, \'","measurement":"\', ri.measurement, \'"}\')
         ), "]") as ingredients
     from 
       recipes r 
