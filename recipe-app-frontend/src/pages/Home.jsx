@@ -4,7 +4,7 @@ import Recipes from "../components/Recipes";
 
 function Home() {
   const { ref, inView } = useInView({
-    threshold: 0,
+    threshold: 0.15,
   });
 
   return (

@@ -3,7 +3,7 @@ function FormInput({ id, register, error, type, children }) {
     <div className="relative flex flex-col gap-2">
       <label htmlFor={id}>{children}</label>
       <input
-        className="rounded-3xl bg-gray-300 p-1 px-4"
+        className="max-w-[20rem] rounded-3xl bg-gray-300 p-1 px-4"
         id={id}
         type={type}
         {...register}

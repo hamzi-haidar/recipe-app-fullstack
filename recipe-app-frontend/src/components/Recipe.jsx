@@ -24,7 +24,7 @@ function Recipe({ data, curUser }) {
         <div className="flex justify-between">
           <div className="flex gap-2">
             <Button to={"/recipe/" + id}>Learn recipe</Button>
-            {curUser === user_name && <Button type="delete">Delete</Button>}
+            {curUser === user_name && <Button type="danger">Delete</Button>}
           </div>
           <Button type="secondary">Comments</Button>
           <div className="flex items-center">

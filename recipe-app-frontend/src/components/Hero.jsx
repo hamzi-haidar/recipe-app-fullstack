@@ -5,7 +5,7 @@ const Hero = React.forwardRef((_, ref) => {
   return (
     <div
       ref={ref}
-      className="flex h-[40rem] w-full items-center justify-center"
+      className="flex h-[100vh] w-full items-center justify-center"
     >
       <img
         src="../src/assets/hero-img.jpg"
