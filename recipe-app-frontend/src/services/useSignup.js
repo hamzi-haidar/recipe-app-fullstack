@@ -27,7 +27,7 @@ export function useSignup() {
 
     onSuccess: () => {
       toast.success("signup successful");
-      navigate("/auth/login");
+      navigate("/auth/login", { replace: true });
     },
     onError: (error) => {
       toast.error(error.message);

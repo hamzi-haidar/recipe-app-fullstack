@@ -25,7 +25,7 @@ function AddEditRecipe({ open, setOpen, userId }) {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    // formState: { errors },
   } = useForm();
 
   function onSubmit(data) {

@@ -92,6 +92,7 @@ function Signup() {
           Already have an account?{" "}
           <Link
             to="/auth/login"
+            replace
             className="font-medium text-blue-400 hover:underline"
           >
             Log in

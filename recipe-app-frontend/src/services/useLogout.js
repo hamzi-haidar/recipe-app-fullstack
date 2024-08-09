@@ -22,7 +22,7 @@ export function useLogout() {
       queryClient.removeQueries(["user"]);
       localStorage.setItem("isAuthenticated", false);
       localStorage.removeItem("user");
-      navigate("/auth/login");
+      navigate("/auth/login", { replace: true });
     },
     onError: () => {
       toast.error("couldn't logout");

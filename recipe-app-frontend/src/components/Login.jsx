@@ -52,6 +52,7 @@ function Login() {
           Dont have an account yet?{" "}
           <Link
             to="/auth/signup"
+            replace
             className="font-medium text-blue-400 hover:underline"
           >
             Sign up
