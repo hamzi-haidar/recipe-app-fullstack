@@ -39,8 +39,8 @@ async function addRecipeApi(data) {
 
     const data = await res2.json();
 
-    if (res2.status === "unsuccessful") {
-      throw new Error("couldn't add recipe");
+    if (data.status === "unsuccessful") {
+      throw new Error(data.message);
     }
 
     return data;

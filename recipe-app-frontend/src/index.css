@@ -34,7 +34,6 @@ h3 {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 8em;
 }
 
 .loading-spinner-inner {
@@ -47,7 +46,6 @@ h3 {
   width: 1em;
   height: 1em;
   border-radius: 50%;
-  background-color: #db9334;
   margin: 0 5px;
   animation: loading-spinner 1s ease-in-out infinite;
 }
@@ -83,4 +81,13 @@ h3 {
     transform: scale(1);
     opacity: 1;
   }
+}
+
+input::file-selector-button {
+  font-weight: 500;
+  padding: 1rem;
+  border: none;
+  background-color: #db9334;
+  color: white;
+  cursor: pointer;
 }
