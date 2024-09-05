@@ -10,6 +10,8 @@ require '../../config.php';
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
   $recipe_id = $_GET["recipe_id"];
+  $user_id = $_GET["user_id"];
+
 
 
   try {

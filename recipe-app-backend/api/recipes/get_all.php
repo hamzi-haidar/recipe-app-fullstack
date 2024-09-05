@@ -9,7 +9,7 @@ require '../../config.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
-  // $user_id = $_GET["user_id"];
+  $user_id = $_GET["user_id"];
 
   try {
     $stmt = $conn->prepare('
