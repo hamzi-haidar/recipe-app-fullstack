@@ -8,13 +8,14 @@ import AddEditRecipe from "./AddEditRecipe";
 function Recipes({ inView }) {
   const [active, setActive] = useState("All recipes");
   const [open, setOpen] = useState(false);
-  const { recipes, isLoading } = useRecipes();
-
-  if (isLoading) return <Loader />;
 
   const user = JSON.parse(localStorage.getItem("user"));
 
-  const curUser = user.user_name;
+  const curUser = user;
+
+  const { recipes, isLoading } = useRecipes(user.user_id);
+
+  if (isLoading) return <Loader />;
 
   return (
     <>
@@ -23,7 +24,7 @@ function Recipes({ inView }) {
         active={active}
         setActive={setActive}
         setOpen={setOpen}
-        curUser={curUser}
+        curUser={curUser.user_name}
       />
       <div className="mb-10 mt-32 flex w-[100%] flex-col items-center gap-24">
         {recipes.map((recipe) => (

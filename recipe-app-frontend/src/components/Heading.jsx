@@ -5,7 +5,7 @@ function Heading({ inView, active, setActive, setOpen, curUser }) {
   const { logout } = useLogout();
   return (
     <div
-      className={`flex w-full items-center gap-4 bg-white px-10 py-10 transition-all duration-300 ${
+      className={`z-20 flex w-full items-center gap-4 bg-white px-10 py-10 transition-all duration-300 ${
         inView
           ? "absolute -bottom-4 bg-opacity-30 backdrop-blur-3xl"
           : "fixed -top-10 translate-y-10"
