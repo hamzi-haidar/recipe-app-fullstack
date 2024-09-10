@@ -2,9 +2,10 @@ import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
 import Button from "./Button";
 import { useDeleteRecipe } from "../services/useDeleteRecipe";
 import { useNavigate } from "react-router-dom";
+import Loader from "./Loader";
 
 function DeleteModal({ open, setOpen, id, image_url }) {
-  const { deleteRecipe } = useDeleteRecipe();
+  const { deleteRecipe, isPending } = useDeleteRecipe();
 
   const navigate = useNavigate();
 
@@ -39,7 +40,7 @@ function DeleteModal({ open, setOpen, id, image_url }) {
                   );
                 }}
               >
-                Delete
+                {isPending ? <Loader type="mini" /> : "Delete"}
               </Button>
             </div>
           </DialogPanel>

@@ -8,9 +8,11 @@ import Ingredients from "./Ingredients";
 import { useEffect, useState } from "react";
 import DeleteModal from "./DeleteModal";
 import { useStar } from "../services/useStar";
+import AddEditRecipe from "./AddEditRecipe";
 
 function RecipeDetails() {
-  const [open, setOpen] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
 
   const params = useParams();
 
@@ -62,13 +64,25 @@ function RecipeDetails() {
           <div className="flex justify-between gap-10">
             {curUser === user_name && (
               <div className="flex gap-4">
-                <Button>Edit recipe</Button>
-                <Button type="danger" onClick={() => setOpen(true)}>
+                <Button onClick={() => setOpenEdit(true)}>Edit recipe</Button>
+                <AddEditRecipe
+                  open={openEdit}
+                  setOpen={setOpenEdit}
+                  values={{
+                    name,
+                    description,
+                    steps,
+                    image_url,
+                    ingredients,
+                    id: params.id,
+                  }}
+                />
+                <Button type="danger" onClick={() => setOpenDelete(true)}>
                   Delete
                 </Button>
                 <DeleteModal
-                  open={open}
-                  setOpen={setOpen}
+                  open={openDelete}
+                  setOpen={setOpenDelete}
                   id={params.id}
                   image_url={image_url}
                 />
