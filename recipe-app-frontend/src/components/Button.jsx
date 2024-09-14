@@ -4,9 +4,10 @@ function Button({ children, type, to, onClick, disabled }) {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
-  const active =
-    searchParams.get("filter")[0].toUpperCase() +
-    searchParams.get("filter").slice(1).replace("-", " ");
+  const active = searchParams.size
+    ? searchParams.get("filter")[0].toUpperCase() +
+      searchParams.get("filter").slice(1).replace("-", " ")
+    : "All recipes";
 
   const styles = {
     secondary: `bg-0 rounded-none sm:text-lg font-medium  ${active === children && "border-b-[3.5px] border-orange-400"}`,
