@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useAsyncError, useParams } from "react-router-dom";
 import { useRecipe } from "../services/useRecipe";
 import Loader from "./Loader";
 import Button from "./Button";
@@ -8,9 +8,13 @@ import Ingredients from "./Ingredients";
 import { useEffect, useState } from "react";
 import DeleteModal from "./DeleteModal";
 import { useStar } from "../services/useStar";
+import AddEditRecipe from "./AddEditRecipe";
+import CommentsModal from "./CommentsModal";
 
 function RecipeDetails() {
-  const [open, setOpen] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
+  const [openComments, setOpenComments] = useState(false);
 
   const params = useParams();
 
@@ -53,7 +57,7 @@ function RecipeDetails() {
             alt={name}
           />
         </div>
-        <div className="flex w-[70%] flex-col gap-12">
+        <div className="flex flex-col gap-12 xl:w-[70%]">
           <div className="flex justify-between">
             <h3>{name}</h3>
             <p>By {user_name}</p>
@@ -62,19 +66,39 @@ function RecipeDetails() {
           <div className="flex justify-between gap-10">
             {curUser === user_name && (
               <div className="flex gap-4">
-                <Button>Edit recipe</Button>
-                <Button type="danger" onClick={() => setOpen(true)}>
+                <Button onClick={() => setOpenEdit(true)}>Edit recipe</Button>
+                <AddEditRecipe
+                  open={openEdit}
+                  setOpen={setOpenEdit}
+                  values={{
+                    name,
+                    description,
+                    steps,
+                    image_url,
+                    ingredients,
+                    id: params.id,
+                  }}
+                />
+                <Button type="danger" onClick={() => setOpenDelete(true)}>
                   Delete
                 </Button>
                 <DeleteModal
-                  open={open}
-                  setOpen={setOpen}
+                  open={openDelete}
+                  setOpen={setOpenDelete}
                   id={params.id}
                   image_url={image_url}
                 />
               </div>
             )}
-            <Button type="secondary">Comments</Button>
+            <Button type="secondary" onClick={() => setOpenComments(true)}>
+              Comments
+            </Button>
+            <CommentsModal
+              open={openComments}
+              setOpen={setOpenComments}
+              recipe_id={params.id}
+              user_id={user_id}
+            />
             <div className="flex items-center">
               {stars ? stars : 0}
               <Button

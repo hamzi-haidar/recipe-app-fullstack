@@ -1,16 +1,11 @@
-import { useInView } from "react-intersection-observer";
-import Hero from "../components/Hero";
+import Header from "../components/Header";
 import Recipes from "../components/Recipes";
 
 function Home() {
-  const { ref, inView } = useInView({
-    threshold: 0.15,
-  });
-
   return (
     <>
-      <Hero ref={ref} />
-      <Recipes inView={inView} />
+      <Header />
+      <Recipes />
     </>
   );
 }

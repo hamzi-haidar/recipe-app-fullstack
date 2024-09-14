@@ -6,30 +6,42 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import useAddRecipe from "../services/useAddRecipe";
 import Loader from "./Loader";
+import { useUpdateRecipe } from "../services/useUpdateRecipe";
 
-function AddEditRecipe({ open, setOpen, userId }) {
-  const [ingredients, setIngredients] = useState([]);
+function AddEditRecipe({ open, setOpen, userId, values }) {
+  const [ingredients, setIngredients] = useState();
 
   const { addRecipe, isPending } = useAddRecipe();
+  const { updateRecipe, isPending: isPending2 } = useUpdateRecipe();
 
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: values,
+  });
 
   useEffect(() => {
     reset();
-    setIngredients([]);
-  }, [open, reset]);
+    reset(values);
+    setIngredients(values?.ingredients || []);
+  }, [open, reset, values]);
 
   function onSubmit(data) {
     if (ingredients.length === 0) return;
-    addRecipe(
-      { ...data, user_id: userId, ingredients },
-      { onSuccess: () => setOpen(false) },
-    );
+
+    if (values) {
+      updateRecipe(
+        { ...data, ingredients: ingredients },
+        { onSuccess: () => setOpen(false) },
+      );
+    } else
+      addRecipe(
+        { ...data, user_id: userId, ingredients },
+        { onSuccess: () => setOpen(false) },
+      );
   }
 
   return (
@@ -79,7 +91,9 @@ function AddEditRecipe({ open, setOpen, userId }) {
                   id="img"
                   name="img"
                   accept="image/*"
-                  {...register("img", { required: "this field is required" })}
+                  {...register("img", {
+                    required: values ? false : "this field is required",
+                  })}
                 />
                 {errors?.img?.message && (
                   <span className="absolute -bottom-6 text-sm text-red-500">
@@ -92,7 +106,7 @@ function AddEditRecipe({ open, setOpen, userId }) {
                   <h3>Description</h3>
                 </label>
                 <textarea
-                  className="h-40 rounded-lg border-2 border-black"
+                  className="h-40 rounded-lg border-2 border-black p-2"
                   id="description"
                   {...register("description", {
                     required: "this field is required",
@@ -109,7 +123,7 @@ function AddEditRecipe({ open, setOpen, userId }) {
                   <h3>Steps</h3>
                 </label>
                 <textarea
-                  className="h-40 rounded-lg border-2 border-black"
+                  className="h-40 rounded-lg border-2 border-black p-2"
                   id="steps"
                   {...register("steps", { required: "this field is required" })}
                 />
@@ -121,7 +135,13 @@ function AddEditRecipe({ open, setOpen, userId }) {
               </div>
               <div className="flex flex-row-reverse gap-2 bg-gray-50 px-4 py-3">
                 <Button disabled={isPending ? true : false}>
-                  {isPending ? <Loader type="mini" /> : "Add"}
+                  {isPending || isPending2 ? (
+                    <Loader type="mini" />
+                  ) : values ? (
+                    "Edit"
+                  ) : (
+                    "Add"
+                  )}
                 </Button>
                 <Button
                   onClick={(e) => {

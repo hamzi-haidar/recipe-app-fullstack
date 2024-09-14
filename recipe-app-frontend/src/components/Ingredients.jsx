@@ -27,12 +27,13 @@ function Ingredients({ ingredients, setIngredients }) {
             key={i}
             ing={{ ...ing, id: i }}
             setIngredients={setIngredients}
+            show={show}
           />
         ))}
         {setIngredients &&
           (!show ? (
             <button
-              onClick={(e) => {
+              onClick={() => {
                 setShow(true);
               }}
               className="rounded-3xl border-2 border-orange-400 p-6 hover:scale-105"
@@ -77,10 +78,8 @@ function Ingredients({ ingredients, setIngredients }) {
               <div className="mt-3 flex flex-row-reverse gap-4">
                 <Button
                   onClick={(e) => {
-                    e.preventDefault();
-
                     if (ingredient === "" || quantity === 0) return;
-
+                    e.preventDefault();
                     setIngredients((ings) => [
                       ...ings,
                       { ingredient, quantity, measurement },

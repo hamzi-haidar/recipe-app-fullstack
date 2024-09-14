@@ -1,7 +1,10 @@
 import Button from "./Button";
 import { useLogout } from "../services/useLogout";
+import { useSearchParams } from "react-router-dom";
 
-function Heading({ inView, active, setActive, setOpen, curUser }) {
+function Navbar({ inView, setOpen, curUser }) {
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const { logout } = useLogout();
   return (
     <div
@@ -11,40 +14,47 @@ function Heading({ inView, active, setActive, setOpen, curUser }) {
           : "fixed -top-10 translate-y-10"
       }`}
     >
-      {/* <h1 className="w-60">{active}</h1> */}
       <div className="hidden w-[30rem] items-center justify-around gap-4 lg:flex">
         <Button
-          active={active}
           type="secondary"
           onClick={(e) => {
-            setActive(e.target.innerText);
+            searchParams.set("filter", "all-recipes");
+            setSearchParams(searchParams);
           }}
         >
           All recipes
         </Button>
         <Button
-          active={active}
           type="secondary"
           onClick={(e) => {
-            setActive(e.target.innerText);
+            searchParams.set("filter", "my-recipes");
+            setSearchParams(searchParams);
           }}
         >
           My recipes
         </Button>
         <Button
-          active={active}
           type="secondary"
           onClick={(e) => {
-            setActive(e.target.innerText);
+            searchParams.set("filter", "starred-recipes");
+            setSearchParams(searchParams);
           }}
         >
           Starred recipes
         </Button>
       </div>
-      <select className="rounded-3xl border-2 border-orange-400 bg-transparent p-2 font-medium lg:hidden">
-        <option value="All recipes">All recipes</option>
-        <option value="My recipes">My recipes</option>
-        <option value="Starred recipes">Starred recipes</option>
+      <select
+        className="rounded-3xl border-2 border-orange-400 bg-transparent p-2 font-medium lg:hidden"
+        value={searchParams.get("filter") || "all-recipes"}
+        onChange={(e) => {
+          console.log(e.target.value);
+          searchParams.set("filter", e.target.value);
+          setSearchParams(searchParams);
+        }}
+      >
+        <option value="all-recipes">All recipes</option>
+        <option value="my-recipes">My recipes</option>
+        <option value="starred-recipes">Starred recipes</option>
       </select>
       <Button onClick={() => setOpen(true)}>
         <span className="lg:hidden">Add</span>
@@ -58,4 +68,4 @@ function Heading({ inView, active, setActive, setOpen, curUser }) {
   );
 }
 
-export default Heading;
+export default Navbar;
