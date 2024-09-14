@@ -4,9 +4,11 @@ import { HiMiniStar } from "react-icons/hi2";
 import DeleteModal from "./DeleteModal";
 import { useState } from "react";
 import { useStar } from "../services/useStar";
+import CommentsModal from "./CommentsModal";
 
 function Recipe({ data, curUser }) {
-  const [open, setOpen] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
+  const [openComments, setOpenComments] = useState(false);
 
   const { updateStar } = useStar();
 
@@ -14,7 +16,7 @@ function Recipe({ data, curUser }) {
     data;
 
   return (
-    <div className="mx-4 flex flex-wrap items-center justify-around gap-4 lg:w-[60rem]">
+    <div className="mx-4 flex w-[40rem] flex-wrap items-center justify-around gap-4 lg:w-[60rem] lg:flex-nowrap xl:w-[70rem]">
       <div className="w-[15rem]">
         <img
           className="h-[15rem] w-[30rem] overflow-hidden rounded-full object-cover"
@@ -32,12 +34,33 @@ function Recipe({ data, curUser }) {
           <div className="flex gap-2">
             <Button to={"/recipe/" + id}>Learn recipe</Button>
             {curUser.user_name === user_name && (
-              <Button type="danger" onClick={() => setOpen(true)}>
+              <Button type="danger" onClick={() => setOpenDelete(true)}>
                 Delete
               </Button>
             )}
+            <DeleteModal
+              open={openDelete}
+              setOpen={setOpenDelete}
+              id={id}
+              image_url={image_url}
+            />
           </div>
-          <Button type="secondary">Comments</Button>
+          <Button
+            type="secondary"
+            onClick={() => {
+              setOpenComments(true);
+            }}
+          >
+            Comments
+          </Button>
+          {openComments && (
+            <CommentsModal
+              open={openComments}
+              setOpen={setOpenComments}
+              recipe_id={id}
+              user_id={curUser.user_id}
+            />
+          )}
           <div className="flex items-center">
             {stars ? stars : 0}
             <Button
@@ -56,12 +79,6 @@ function Recipe({ data, curUser }) {
                 <HiOutlineStar size="1.7rem" />
               )}
             </Button>
-            <DeleteModal
-              open={open}
-              setOpen={setOpen}
-              id={id}
-              image_url={image_url}
-            />
           </div>
         </div>
       </div>

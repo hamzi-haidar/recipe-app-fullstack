@@ -1,7 +1,12 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
-function Button({ children, type, to, onClick, active, disabled }) {
+function Button({ children, type, to, onClick, disabled }) {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
+  const active =
+    searchParams.get("filter")[0].toUpperCase() +
+    searchParams.get("filter").slice(1).replace("-", " ");
 
   const styles = {
     secondary: `bg-0 rounded-none sm:text-lg font-medium  ${active === children && "border-b-[3.5px] border-orange-400"}`,
