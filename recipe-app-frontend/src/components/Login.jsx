@@ -17,7 +17,7 @@ function Login() {
   return (
     <div className="flex h-screen items-center justify-center gap-4">
       <img
-        className="h-[35rem]"
+        className="hidden h-[35rem] md:block"
         src="../src/assets/login.jpg"
         alt="ingredients"
       />

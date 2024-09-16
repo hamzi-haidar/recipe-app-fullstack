@@ -43,29 +43,27 @@ function RecipeDetails() {
   } = recipe[0];
 
   return (
-    <div className="mx-20 mb-10 flex w-full flex-col gap-16 p-10">
+    <div className="mx-20 mb-10 flex w-full flex-col gap-16 p-10 text-sm md:text-base">
       <div className="text-xl font-medium">
         <Button type="secondary" to={-1}>
           ← Back
         </Button>
       </div>
-      <div className="mx-4 flex flex-wrap items-center justify-between gap-4">
-        <div className="w-[20rem]">
-          <img
-            className="h-[20rem] w-[20rem] overflow-hidden rounded-full object-cover"
-            src={image_url}
-            alt={name}
-          />
-        </div>
+      <div className="flex flex-wrap items-center justify-center gap-2">
+        <img
+          className="mr-4 h-[12rem] w-[12rem] overflow-hidden rounded-full object-cover md:h-[20rem] md:w-[20rem]"
+          src={image_url}
+          alt={name}
+        />
         <div className="flex flex-col gap-12 xl:w-[70%]">
           <div className="flex justify-between">
             <h3>{name}</h3>
             <p>By {user_name}</p>
           </div>
           <div>{description}</div>
-          <div className="flex justify-between gap-10">
+          <div className="flex justify-between gap-8">
             {curUser === user_name && (
-              <div className="flex gap-4">
+              <div className="flex gap-2">
                 <Button onClick={() => setOpenEdit(true)}>Edit recipe</Button>
                 <AddEditRecipe
                   open={openEdit}

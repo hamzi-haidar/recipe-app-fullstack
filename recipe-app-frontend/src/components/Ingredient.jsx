@@ -2,7 +2,7 @@ import { HiX } from "react-icons/hi";
 
 function Ingredient({ ing, setIngredients, show }) {
   return (
-    <div className="relative h-20 min-w-40 rounded-2xl bg-orange-400 p-5 pr-10 text-white">
+    <div className="relative h-20 min-w-[8rem] rounded-2xl bg-orange-400 p-5 pr-10 text-white">
       {setIngredients && !show && (
         <button
           id={ing.id}
