@@ -1,4 +1,4 @@
-import { useAsyncError, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useRecipe } from "../services/useRecipe";
 import Loader from "./Loader";
 import Button from "./Button";
@@ -122,7 +122,7 @@ function RecipeDetails() {
       <Ingredients ingredients={ingredients} />
       <div className="flex flex-col gap-5">
         <h1>steps</h1>
-        <p>{steps}</p>
+        <p className="whitespace-pre-wrap">{steps}</p>
       </div>
     </div>
   );
