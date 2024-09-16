@@ -6,6 +6,8 @@ function Comment({ comment }) {
 
   const { deleteComment } = useDeleteComment();
 
+  console.log(comment);
+
   return (
     <div className="mt-2 rounded-lg border-2 p-2">
       <div className="flex justify-between">
@@ -22,7 +24,7 @@ function Comment({ comment }) {
           </button>
         )}
       </div>
-      <p>{comment.comment}</p>
+      <p className="whitespace-pre-wrap">{comment.comment}</p>
     </div>
   );
 }

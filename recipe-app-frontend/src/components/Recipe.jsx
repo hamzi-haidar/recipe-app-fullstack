@@ -16,7 +16,7 @@ function Recipe({ data, curUser }) {
     data;
 
   return (
-    <div className="mx-4 flex w-[40rem] flex-wrap items-center justify-around gap-4 lg:w-[60rem] lg:flex-nowrap xl:w-[70rem]">
+    <div className="mx-4 flex flex-wrap items-center justify-around gap-4 lg:w-[60rem] lg:flex-nowrap xl:w-[70rem]">
       <div className="w-[15rem]">
         <img
           className="h-[15rem] w-[30rem] overflow-hidden rounded-full object-cover"

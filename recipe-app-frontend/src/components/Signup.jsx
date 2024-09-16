@@ -5,9 +5,6 @@ import { useSignup } from "../services/useSignup";
 import FormInput from "./FormInput";
 
 function Signup() {
-  // const [email, setEmail] = useState("h@test.com");
-  // const [password, setPassword] = useState("pass1234");
-
   const { signup } = useSignup();
 
   const {
@@ -23,7 +20,7 @@ function Signup() {
   return (
     <div className="flex h-screen items-center justify-center gap-4">
       <img
-        className="h-[35rem]"
+        className="hidden h-[35rem] md:block"
         src="../src/assets/signup.jpg"
         alt="ingredients"
       />

@@ -8,7 +8,7 @@ function Navbar({ inView, setOpen, curUser }) {
   const { logout } = useLogout();
   return (
     <div
-      className={`z-20 flex w-full items-center gap-4 bg-white px-10 py-10 transition-all duration-300 ${
+      className={`z-20 flex w-full items-center gap-2 bg-white px-10 py-10 transition-all duration-300 ${
         inView
           ? "absolute -bottom-4 bg-opacity-30 backdrop-blur-3xl"
           : "fixed -top-10 translate-y-10"
@@ -44,7 +44,7 @@ function Navbar({ inView, setOpen, curUser }) {
         </Button>
       </div>
       <select
-        className="rounded-3xl border-2 border-orange-400 bg-transparent p-2 font-medium lg:hidden"
+        className="rounded-3xl border-2 border-orange-400 bg-transparent p-1 text-sm font-medium lg:hidden"
         value={searchParams.get("filter") || "all-recipes"}
         onChange={(e) => {
           console.log(e.target.value);
