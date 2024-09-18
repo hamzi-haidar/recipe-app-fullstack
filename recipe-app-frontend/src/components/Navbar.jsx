@@ -17,7 +17,7 @@ function Navbar({ inView, setOpen, curUser }) {
       <div className="hidden w-[30rem] items-center justify-around gap-4 lg:flex">
         <Button
           type="secondary"
-          onClick={(e) => {
+          onClick={() => {
             searchParams.set("filter", "all-recipes");
             setSearchParams(searchParams);
           }}
@@ -26,7 +26,7 @@ function Navbar({ inView, setOpen, curUser }) {
         </Button>
         <Button
           type="secondary"
-          onClick={(e) => {
+          onClick={() => {
             searchParams.set("filter", "my-recipes");
             setSearchParams(searchParams);
           }}
@@ -35,7 +35,7 @@ function Navbar({ inView, setOpen, curUser }) {
         </Button>
         <Button
           type="secondary"
-          onClick={(e) => {
+          onClick={() => {
             searchParams.set("filter", "starred-recipes");
             setSearchParams(searchParams);
           }}
@@ -47,7 +47,6 @@ function Navbar({ inView, setOpen, curUser }) {
         className="rounded-3xl border-2 border-orange-400 bg-transparent p-1 text-sm font-medium lg:hidden"
         value={searchParams.get("filter") || "all-recipes"}
         onChange={(e) => {
-          console.log(e.target.value);
           searchParams.set("filter", e.target.value);
           setSearchParams(searchParams);
         }}
