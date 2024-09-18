@@ -1,8 +1,17 @@
+import { motion } from "framer-motion";
 import { HiX } from "react-icons/hi";
 
 function Ingredient({ ing, setIngredients, show }) {
   return (
-    <div className="relative h-20 min-w-40 rounded-2xl bg-orange-400 p-5 pr-10 text-white">
+    <motion.div
+      className="relative h-20 min-w-[8rem] rounded-2xl bg-orange-400 p-5 pr-10 text-white"
+      initial={{
+        opacity: 0,
+        y: 100,
+      }}
+      animate={{ opacity: 1, y: 1 }}
+      transition={{ delay: setIngredients ? 0 : 0.1 * ing.id }}
+    >
       {setIngredients && !show && (
         <button
           id={ing.id}
@@ -20,7 +29,7 @@ function Ingredient({ ing, setIngredients, show }) {
         {ing.quantity}
         <span> {ing.measurement}</span>
       </p>
-    </div>
+    </motion.div>
   );
 }
 

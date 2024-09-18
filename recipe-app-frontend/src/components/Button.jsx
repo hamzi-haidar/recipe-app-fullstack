@@ -17,7 +17,7 @@ function Button({ children, type, to, onClick, disabled }) {
 
   return (
     <button
-      className={`whitespace-nowrap rounded-3xl px-3 py-2 text-sm text-black hover:scale-105 disabled:cursor-not-allowed sm:text-base ${styles[type] || styles.primary}`}
+      className={`whitespace-nowrap rounded-3xl px-2 py-1 text-xs text-black hover:scale-105 disabled:cursor-not-allowed sm:text-base md:px-3 md:py-2 ${styles[type] || styles.primary}`}
       disabled={disabled}
       onClick={
         to
