@@ -30,20 +30,23 @@ function Ingredients({ ingredients, setIngredients }) {
             show={show}
           />
         ))}
-        {setIngredients &&
-          (!show ? (
+        {setIngredients && (
+          <div
+            className={`relative rounded-3xl border-2 border-orange-400 duration-200 ${!show ? "h-20 w-20 hover:scale-105" : "h-[13rem] w-[14rem]"}`}
+          >
             <button
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
                 setShow(true);
               }}
-              className="rounded-3xl border-2 border-orange-400 p-6 hover:scale-105"
+              className={`absolute z-20 p-7 ${show && "hidden"}`}
             >
               <HiPlus size="1.5rem" color="fb923c" />
             </button>
-          ) : (
+
             <div
               ref={ref}
-              className="rounded-xl border-2 border-orange-400 p-4"
+              className={`absolute p-4 ${!show && "opacity-0"} duration-200`}
             >
               <div className="flex flex-col gap-2">
                 <label htmlFor="">Ingredient</label>
@@ -78,8 +81,8 @@ function Ingredients({ ingredients, setIngredients }) {
               <div className="mt-3 flex flex-row-reverse gap-4">
                 <Button
                   onClick={(e) => {
-                    if (ingredient === "" || quantity === 0) return;
                     e.preventDefault();
+                    if (ingredient === "" || quantity === 0) return;
                     setIngredients((ings) => [
                       ...ings,
                       { ingredient, quantity, measurement },
@@ -94,7 +97,8 @@ function Ingredients({ ingredients, setIngredients }) {
                   <HiPlus />
                 </Button>
                 <Button
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.preventDefault();
                     setIngredient("");
                     setQuantity(0);
                     setMeasurement("g");
@@ -106,7 +110,8 @@ function Ingredients({ ingredients, setIngredients }) {
                 </Button>
               </div>
             </div>
-          ))}
+          </div>
+        )}
       </div>
     </div>
   );
