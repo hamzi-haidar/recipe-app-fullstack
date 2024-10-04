@@ -46,7 +46,7 @@ function Ingredients({ ingredients, setIngredients }) {
 
             <div
               ref={ref}
-              className={`absolute p-4 ${!show && "opacity-0"} duration-200`}
+              className={`absolute p-4 ${!show && "pointer-events-none opacity-0"} duration-300`}
             >
               <div className="flex flex-col gap-2">
                 <label htmlFor="">Ingredient</label>
