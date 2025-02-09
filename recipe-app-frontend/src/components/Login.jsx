@@ -7,6 +7,8 @@ function Login() {
   const [email, setEmail] = useState("h@t.com");
   const [password, setPassword] = useState("pass1243");
 
+  localStorage.setItem("isAuthenticated", false);
+
   const { login } = useLogin();
 
   function handleSubmit(e) {
