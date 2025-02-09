@@ -1,6 +1,5 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
-import AppLayout from "./components/AppLayout";
 import Home from "./pages/Home";
 
 import Auth from "./pages/Auth";
@@ -24,18 +23,12 @@ function App() {
       <ReactQueryDevtools initialIsOpen={false} />
       <BrowserRouter>
         <Routes>
-          <Route
-            element={
-              <ProtectedRoutes>
-                <AppLayout />
-              </ProtectedRoutes>
-            }
-          >
+          <Route path="auth/:id" element={<Auth />} />
+          <Route element={<ProtectedRoutes />}>
             <Route index element={<Navigate replace to="home" />} />
             <Route path="home" element={<Home />} />
             <Route path="recipe/:id" element={<RecipePage />} />
           </Route>
-          <Route path="auth/:id" element={<Auth />} />
         </Routes>
       </BrowserRouter>
       <ToastContainer

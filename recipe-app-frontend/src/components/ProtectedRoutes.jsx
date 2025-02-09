@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
-function ProtectedRoutes({ children }) {
+function ProtectedRoutes() {
   const isAuthenticated = JSON.parse(localStorage.getItem("isAuthenticated"));
 
   const navigate = useNavigate();
@@ -10,7 +10,7 @@ function ProtectedRoutes({ children }) {
     if (!isAuthenticated) navigate("/auth/login");
   }, [navigate, isAuthenticated]);
 
-  if (isAuthenticated) return children;
+  if (isAuthenticated) return <Outlet />;
 }
 
 export default ProtectedRoutes;
